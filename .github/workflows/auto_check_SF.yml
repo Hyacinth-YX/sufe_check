@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
       - name: TimeZone
         run: |
-          sudo cp /usr/share/zoneinfo/Asia/Shanghai    /etc/localtim
+          sudo cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtim
           date -R
+      - name: Checkout
+        uses: actions/checkout@master
       - name: Install python3
         run: |
           sudo -E apt-get -yqq update
