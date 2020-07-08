@@ -49,10 +49,16 @@ class checker ():
         self.passwd = passwd
         self.maxretry = maxretry
 
+        self.chrome_options = None
         if self.os_type == "mac":
             self.DRIVER_PATH = "./chromeDriver/chromedriver_mac"
         elif self.os_type == "linux":
             self.DRIVER_PATH = "./chromeDriver/chromedriver_linux"
+            from selenium.webdriver.chrome.options import Options  # no gui
+            self.chrome_options = Options ()
+            self.chrome_options.add_argument ('--headless')
+            self.chrome_options.add_argument ('--disable-gpu')
+            self.chrome_options.add_argument('--no-sandbox')
         elif self.os_type == "windows":
             self.DRIVER_PATH = "./chromeDriver/chromedriver_win.exe"
         else:
@@ -85,7 +91,7 @@ class checker ():
         retry = 0
         while True:
             try:
-                browser = webdriver.Chrome (self.DRIVER_PATH)
+                browser = webdriver.Chrome (self.DRIVER_PATH,options=self.chrome_options)
 
                 browser.get (self.formUrl)
 
