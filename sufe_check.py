@@ -321,8 +321,8 @@ if __name__ == '__main__':
     if args.maxretry:
         maxretry = int (args.maxretry.strip ('"'))
 
-    checker_ob = checker (uid=uid, passwd=passwd, os_type=os_type, form_dir=form_dir, code_dir=code_dir,
-                          decoder=decoder,
+    checker_ob = checker (uid=uid, passwd=passwd, os_type=os_type, stdName=stdName, mobile=mobile,
+                          form_dir=form_dir, code_dir=code_dir, decoder=decoder,
                           app_id=app_id, api_key=api_key, secret_key=secret_key, maxretry=maxretry)
     checker_ob.get_login_cookie ()
     filename = checker_ob.queryForm ()
