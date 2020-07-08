@@ -23,6 +23,7 @@ class checker ():
                  app_id="", api_key="", secret_key="", maxretry=10):
         self.os_type = os_type  # mac or linux, not support windows
         self.decoder = decoder  # "baidu" or "pytesseract"
+        self.headless = True
 
         """ 你的 APPID AK SK """
         self.APP_ID = app_id
@@ -49,18 +50,20 @@ class checker ():
         self.passwd = passwd
         self.maxretry = maxretry
 
-        self.chrome_options = None
-        if self.os_type == "mac":
-            self.DRIVER_PATH = "./chromeDriver/chromedriver_mac"
-        elif self.os_type == "linux":
-            self.DRIVER_PATH = "./chromeDriver/chromedriver_linux"
+        if self.headless:
             from selenium.webdriver.chrome.options import Options  # no gui
             self.chrome_options = Options ()
             self.chrome_options.add_argument ('--headless')
             self.chrome_options.add_argument ('--disable-gpu')
-            self.chrome_options.add_argument('--no-sandbox')
-            self.chrome_options.add_argument("window-size=1980,1080")
-            # self.chrome_options.add_argument("-screenshot")
+            self.chrome_options.add_argument ('--no-sandbox')
+            self.chrome_options.add_argument ("window-size=1980,1080")
+        else:
+            self.chrome_options = None
+
+        if self.os_type == "mac":
+            self.DRIVER_PATH = "./chromeDriver/chromedriver_mac"
+        elif self.os_type == "linux":
+            self.DRIVER_PATH = "./chromeDriver/chromedriver_linux"
         elif self.os_type == "windows":
             self.DRIVER_PATH = "./chromeDriver/chromedriver_win.exe"
         else:
@@ -162,7 +165,7 @@ class checker ():
             captchaElem = browser.find_element_by_id ("codeImg").find_element_by_tag_name ("img")  # # 获取指定元素（验证码）
 
             captchaX = int (captchaElem.location['x'])
-            captchaY = int (captchaElem.location['y']) + 60  # 不知道为什么截屏的验证码需要下移60p
+            captchaY = int (captchaElem.location['y'])  # 不知道为什么截屏的验证码需要下移60p
             # 获取验证码宽高
             captchaWidth = captchaElem.size['width']
             captchaHeight = captchaElem.size['height']
@@ -332,11 +335,15 @@ if __name__ == '__main__':
     if args.maxretry:
         maxretry = int (args.maxretry.strip ('"'))
 
+    print("正在初始化")
     checker_ob = checker (uid=uid, passwd=passwd, os_type=os_type, stdName=stdName, mobile=mobile,
                           form_dir=form_dir, code_dir=code_dir, decoder=decoder,
                           app_id=app_id, api_key=api_key, secret_key=secret_key, maxretry=maxretry)
+    print ("正在登陆获取cookie")
     checker_ob.get_login_cookie ()
+    print("查询待填写form名称")
     filename = checker_ob.queryForm ()
+    print("正在尝试填写表单")
     checker_ob.submitForm (filename)
     if checker_ob.checkIfSubmited ():
         print ("检查完毕，确定提交成功啦")
