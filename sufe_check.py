@@ -132,7 +132,8 @@ class checker ():
                     browser.refresh ()
                     retry += 1
                     if retry >= self.maxretry:
-                        break
+                        print("尝试次数达到最大次数，请检查验证码是否解码正确，或用户名密码是否输入正确")
+                        exit(555)
             except Exception as e:
                 if browser.current_url == self.finishedUrl:
                     print ("已经上报成功")
@@ -141,7 +142,8 @@ class checker ():
                     browser.refresh ()
                     retry += 1
                     if retry >= self.maxretry:
-                        break
+                        print ("尝试次数达到最大次数，请检查验证码是否解码正确，或用户名密码是否输入正确")
+                        exit (555)
         # 获取cookie
         sufeCookies = browser.get_cookies ()
         browser.quit ()
