@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: TimeZone
         run: |
-          sudo cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtim
+          sudo cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
           date -R
       - name: Checkout
         uses: actions/checkout@master
