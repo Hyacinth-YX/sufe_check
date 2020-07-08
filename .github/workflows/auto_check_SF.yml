@@ -31,7 +31,7 @@ jobs:
           sudo apt-get upgrade
           sudo apt-get install libgconf2-4  libxss1 libappindicator1 libindicator7
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome*.deb    # Might show "errors", fixed by next line
+          sudo dpkg -i google-chrome*.deb
           sudo apt-get install -f
           google-chrome --version
       - name: Run program
