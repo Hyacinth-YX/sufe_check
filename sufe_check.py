@@ -267,11 +267,11 @@ class checker ():
 if __name__ == '__main__':
     # 可以在运行时指定用户名密码，也可以在这里手动添加，为保证安全性，建议在运行时用secrets指定
     parser = argparse.ArgumentParser ()
-    parser.add_argument ("uid", help="用户名")
-    parser.add_argument ("passwd", help="密码")
-    parser.add_argument ("stdName", help="学生姓名")
-    parser.add_argument ("mobile", help="登记的手机号码（注意与学号对应）")
-    parser.add_argument ("os_type", help='操作系统("mac","windows","linux")')
+    parser.add_argument ("-uid", help="用户名")
+    parser.add_argument ("-passwd", help="密码")
+    parser.add_argument ("-stdName", help="学生姓名")
+    parser.add_argument ("-mobile", help="登记的手机号码（注意与学号对应）")
+    parser.add_argument ("-os_type", help='操作系统("mac","windows","linux")')
     parser.add_argument ("-decoder", help="解码器('baidu','pytesseract')")
     parser.add_argument ("-app_id", help="百度aip接口")
     parser.add_argument ("-api_key", help="百度aip接口")
