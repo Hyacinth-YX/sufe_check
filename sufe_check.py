@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+# Author: Hyacinth
 import requests
 from bs4 import BeautifulSoup
 import hashlib
