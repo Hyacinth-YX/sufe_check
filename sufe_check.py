@@ -60,7 +60,7 @@ class checker ():
             self.chrome_options.add_argument ('--disable-gpu')
             self.chrome_options.add_argument('--no-sandbox')
             self.chrome_options.add_argument("window-size=1980,1080")
-            self.chrome_options.add_argument("--screenshot")
+            # self.chrome_options.add_argument("--screenshot")
         elif self.os_type == "windows":
             self.DRIVER_PATH = "./chromeDriver/chromedriver_win.exe"
         else:
