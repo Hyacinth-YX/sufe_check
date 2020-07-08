@@ -112,6 +112,7 @@ class checker ():
 
             valid_code = self.get_valid_code (browser)
             if (len (valid_code) < 5):
+                print("识别到的验证码不符合要求正在重试")
                 browser.refresh ()
                 continue
 
@@ -253,7 +254,7 @@ class checker ():
         self.client.basicGeneral (image);
         """ 带参数调用通用文字识别, 图片参数为本地图片 """
         re = self.client.basicGeneral (image)
-        return re['words_result'][0]['words'].replace (" ", "") if len (re) > 0 else ""
+        return re['words_result'][0]['words'].replace (" ", "") if len (re['words_result']) > 0 else ""
 
     def decode_by_pytesseract(self, code_file_name):
         imageCode = Image.open ("./code_dir" + "/" + code_file_name)  # 图像增强，二值化
