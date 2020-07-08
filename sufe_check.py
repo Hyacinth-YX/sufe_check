@@ -18,7 +18,8 @@ from selenium.webdriver.common.by import By
 
 
 class checker ():
-    def __init__(self, uid, passwd, form_dir="./form_dir", code_dir="./code_dir", os_type="mac", decoder="baidu",
+    def __init__(self, uid, passwd, stdName, mobile, form_dir="./form_dir", code_dir="./code_dir", os_type="mac",
+                 decoder="baidu",
                  app_id="", api_key="", secret_key="", maxretry=10):
         self.os_type = os_type  # mac or linux, not support windows
         self.decoder = decoder  # "baidu" or "pytesseract"
@@ -43,6 +44,8 @@ class checker ():
         self.form_dir = form_dir
         self.code_dir = code_dir
         self.uid = uid
+        self.stdName = stdName
+        self.mobile = mobile
         self.passwd = passwd
         self.maxretry = maxretry
 
@@ -209,6 +212,7 @@ class checker ():
             with open (filePath, "r") as f:
                 form = json.loads (f.read ())
             form["reportDate"] = time.strftime ("%Y-%m-%d", time.localtime ())
+            form.update ({"stdCode": self.uid, "stdName": self.stdName, "mobile": self.mobile})
             url = self.submitUrl
             response = self.session.post (url, headers=self.header, data=form)
             if response.status_code == 200:
@@ -247,7 +251,7 @@ class checker ():
 """            
 准备工作：请在form_dir中用md5码摘要得到文件名的json文件中，修改自己的信息
 
-必选参数 uid:校园卡账号 passwd:密码 os_type:操作系统("mac","windows","linux")
+必选参数 uid:校园卡账号 passwd:密码 os_type:操作系统("mac","windows","linux") stdName:学生姓名 mobile:手机号码
 
 可选参数  decoder:用于解码验证码的api ("baidu","pytesseract")
         (app_id api_key secret_key):均为百度decoder的账户信息  maxretry:最大尝试次数，默认10
@@ -265,6 +269,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser ()
     parser.add_argument ("uid", help="用户名")
     parser.add_argument ("passwd", help="密码")
+    parser.add_argument ("stdName", help="学生姓名")
+    parser.add_argument ("mobile", help="登记的手机号码（注意与学号对应）")
     parser.add_argument ("os_type", help='操作系统("mac","windows","linux")')
     parser.add_argument ("-decoder", help="解码器('baidu','pytesseract')")
     parser.add_argument ("-app_id", help="百度aip接口")
@@ -275,21 +281,15 @@ if __name__ == '__main__':
     parser.add_argument ("-maxretry", help="最大尝试次数")
     args = parser.parse_args ()
 
-    # uid = None
-    # passwd = None
-    # os_type = None
-    # decoder = "baidu"
-    # app_id = ""
-    # api_key = ""
-    # secret_key = ""
-
-    uid = "2018111825"
-    passwd = "740317Yx"
-    os_type = "mac"
+    uid = None
+    passwd = None
+    stdName = ""
+    mobile = ""
+    os_type = None
     decoder = "baidu"
-    app_id = '21169822'
-    api_key = 'QwWTfexVG52GtCX7YSWzDQyg'
-    secret_key = 'CBVIsG4r1pEgyAycgH4TOSMzqQDZ9r2a'
+    app_id = ""
+    api_key = ""
+    secret_key = ""
 
     form_dir = "./form_dir"
     code_dir = "./code_dir"
@@ -300,10 +300,14 @@ if __name__ == '__main__':
         uid = args.uid.strip ('"')
     if args.passwd:
         passwd = args.passwd.strip ('"')
+    if args.stdName:
+        stdName = args.stdName.strip ('"')
+    if args.mobile:
+        mobile = args.mobile.strip ('"')
     if args.os_type:
-        os_type = args.os_type.strip ('"').lower()
+        os_type = args.os_type.strip ('"').lower ()
     if args.decoder:
-        decoder = args.decoder.strip ('"').lower()
+        decoder = args.decoder.strip ('"').lower ()
     if args.app_id:
         app_id = args.app_id.strip ('"')
     if args.api_key:
@@ -315,10 +319,11 @@ if __name__ == '__main__':
     if args.code_dir:
         code_dir = args.code_dir.strip ('"')
     if args.maxretry:
-        maxretry = int(args.maxretry.strip ('"'))
+        maxretry = int (args.maxretry.strip ('"'))
 
-    checker_ob = checker (uid=uid,passwd=passwd,os_type=os_type,form_dir=form_dir, code_dir=code_dir,decoder=decoder,
-                          app_id=app_id,api_key=api_key,secret_key=secret_key,maxretry=maxretry)
+    checker_ob = checker (uid=uid, passwd=passwd, os_type=os_type, form_dir=form_dir, code_dir=code_dir,
+                          decoder=decoder,
+                          app_id=app_id, api_key=api_key, secret_key=secret_key, maxretry=maxretry)
     checker_ob.get_login_cookie ()
     filename = checker_ob.queryForm ()
     checker_ob.submitForm (filename)

@@ -32,6 +32,9 @@ jobs:
           APP_ID: ${{ secrets.APP_ID }}
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          STDNAME: ${{secrets.STDNAME}}
+          MOBILE: ${{secrets.MOBILE}}
         run: |
           python3 sufe_check.py -uid ${UID} -passwd ${PASSWD} -os_type "linux" |
-          -decoder "baidu" -app_id ${APP_ID} -api_key ${API_KEY} -secret_key ${SECRET_KEY}
+          -decoder "baidu" -app_id ${APP_ID} -api_key ${API_KEY} -secret_key ${SECRET_KEY} |
+          -stdName ${STDNAME} -mobile ${MOBILE}
