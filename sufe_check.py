@@ -60,7 +60,7 @@ class checker ():
             self.chrome_options.add_argument ('--disable-gpu')
             self.chrome_options.add_argument('--no-sandbox')
             self.chrome_options.add_argument("window-size=1980,1080")
-            self.chrome_options.add_argument("-screenshot")
+            # self.chrome_options.add_argument("-screenshot")
         elif self.os_type == "windows":
             self.DRIVER_PATH = "./chromeDriver/chromedriver_win.exe"
         else:
@@ -155,6 +155,9 @@ class checker ():
             _file_name_wz = str (_file_name) + '.png'
             _file_url = self.code_dir + '/' + _file_name_wz
             browser.get_screenshot_as_file (_file_url)  # get_screenshot_as_file截屏
+            if not os.path.exists(_file_url):
+                print("全屏截图失败")
+                exit(3)
 
             captchaElem = browser.find_element_by_id ("codeImg").find_element_by_tag_name ("img")  # # 获取指定元素（验证码）
 
