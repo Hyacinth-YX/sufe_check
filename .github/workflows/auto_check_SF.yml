@@ -34,6 +34,7 @@ jobs:
           sudo dpkg -i google-chrome*.deb
           sudo apt-get install -f
           google-chrome --version
+          google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu &
       - name: Run program
         env:
           UID: ${{ secrets.UID }}
