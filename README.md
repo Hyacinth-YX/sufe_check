@@ -8,11 +8,13 @@ github提供的actions服务可以让你在没有服务器的情况下运行一�
 首先在你自己的github上建立一个仓库，将本仓库的所有文件都放到你自己的仓库里，注意自己给自己的仓库一个star。
 然后在Settings的Secrets中添加自己的私密信息，主要包括
 
-    UID: ${{ secrets.UID }}
-    PASSWD: ${{ secrets.PASSWD }}
-    APP_ID: ${{ secrets.APP_ID }}
-    API_KEY: ${{ secrets.API_KEY }}
-    SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    UID: ${{ secrets.UID }} 你的学号
+    PASSWD: ${{ secrets.PASSWD }} 你的密码
+    APP_ID: ${{ secrets.APP_ID }} 你的百度aip相关信息
+    API_KEY: ${{ secrets.API_KEY }} 你的百度aip相关信息
+    SECRET_KEY: ${{ secrets.SECRET_KEY }} 你的百度aip相关信息
+    STDNAME: ${{secrets.STDNAME}} 你的姓名
+    MOBILE: ${{secrets.MOBILE}} 你的手机号码
     
 UID是你的学号，PASSWD是登录密码，APP_ID、API_KEY、SECRET_KEY是可选如果你选了baidu api作为验证码解码器
 那么需要去[百度ai开放平台](https://ai.baidu.com)申请一个账户，在文字识别服务中新建一个应用，他会提供你相关
