@@ -216,7 +216,8 @@ class checker ():
             response = self.session.get (self.formUrl, headers=self.header).text
             soup = BeautifulSoup (response, 'lxml')
             if soup.text.find ("是否被发现疑似") > -1:
-                digest = hashlib.md5 (soup.text.encode (encoding="gb2312")).hexdigest ()
+                content = "".join(list(map(str,soup.find_all("div",attrs={"class":"weui-cells__title"}))))
+                digest = hashlib.md5 (content.encode (encoding="gb2312")).hexdigest ()
                 formname = digest + ".json"
                 return formname
             else:
@@ -240,13 +241,13 @@ class checker ():
             print (f"表单信息不存在或可能已经修改，请在{filePath}中手动填写信息")
             with open (filePath, 'w') as f:
                 f.write ("请根据stdForm填写该文件")
+            exit(404)
 
     def _get_file_content(self, filePath):
         with open (filePath, 'rb') as fp:
             return fp.read ()
 
     """百度aip识别验证码"""
-
     def decode_by_baidu(self, image_name):
         """ 读取图片 """
         image = self._get_file_content (self.code_dir + "/" + image_name)
