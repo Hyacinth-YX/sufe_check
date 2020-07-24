@@ -3,7 +3,7 @@ name: auto_check_SF
 on:
   push:
     branches:
-      - master
+      - main
   watch:
     types: started
   schedule:
