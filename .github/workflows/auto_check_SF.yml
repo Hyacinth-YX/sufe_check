@@ -3,7 +3,7 @@ name: auto_check_SF
 on:
   push:
     branches:
-      - main
+      - master
   watch:
     types: started
   schedule:
@@ -21,7 +21,7 @@ jobs:
           sudo cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
           date -R
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: Install python3
         run: |
           sudo -E apt-get -yqq update
@@ -53,7 +53,7 @@ jobs:
         run: |
           python3 sufe_check.py -uid ${UID} -passwd ${PASSWD} -os_type "linux" -stdName ${STDNAME} -mobile ${MOBILE} -decoder "baidu" -app_id ${APP_ID} -api_key ${API_KEY} -secret_key ${SECRET_KEY}
       - name: Upload form_dir
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@main
         with:
           name: form_dir
           path: form_dir
