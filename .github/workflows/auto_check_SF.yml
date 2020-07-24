@@ -8,6 +8,8 @@ on:
     types: started
   schedule:
     - cron: 0 23 * * *
+    - cron: 0 4 * * *
+    - cron: 0 9 * * *
 
 jobs:
   build:
