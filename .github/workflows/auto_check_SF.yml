@@ -33,12 +33,7 @@ jobs:
           sudo add-apt-repository ppa:alex-p/tesseract-ocr
       - name: Install Chrome
         run: |
-          sudo apt-get update
-          sudo apt-get upgrade
-          sudo apt-get install -y libgconf2-4  libxss1 libappindicator1 libindicator7
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome*.deb
-          sudo apt-get install -f -y
+          curl https://intoli.com/install-google-chrome.sh | bash
           google-chrome --version
           google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu &
       - name: Run program
