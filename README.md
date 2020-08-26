@@ -14,6 +14,10 @@
 2020.8.3
 修复安装chrome失败的问题
 
+2020.8.26
+为了匹配最新稳定版本chrome，更换chromedrive以匹配85版本。部分老版本chrome可能本机运行
+时不匹配，请替换为old version或升级chrome，变换为符合版本。
+
 
 # Start up
 这是一个每天自动为SUFE健康申报的程序，由python写成，包含了actions，可以将项目挂载github上自动运行。
