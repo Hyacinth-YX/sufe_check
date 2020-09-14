@@ -36,10 +36,10 @@ class checker ():
             'accept': '*/*'
         }
 
-        self.queryUrl = 'http://eams.sufe.edu.cn/tch/ncp/cn.edu.sufe.ncp.stuReport.queryStdInfo.biz.ext'
-        self.formUrl = 'http://eams.sufe.edu.cn/tch/ncp/ncpIndex.jsp'
-        self.finishedUrl = "http://eams.sufe.edu.cn/tch/ncp/finished.html"
-        self.submitUrl = 'http://eams.sufe.edu.cn/tch/ncp/cn.edu.sufe.ncp.stuReport.submit.biz.ext'
+        self.queryUrl = 'http://stu.sufe.edu.cn/stu/ncp/cn.edu.sufe.ncp.stuReport.queryStdInfo.biz.ext'
+        self.formUrl = 'http://stu.sufe.edu.cn/stu/ncp/ncpIndex.jsp'
+        self.finishedUrl = "http://stu.sufe.edu.cn/stu/ncp/finished.html"
+        self.submitUrl = 'http://stu.sufe.edu.cn/stu/ncp/cn.edu.sufe.ncp.stuReport.submit.biz.ext'
 
         self.session = requests.session ()
         self.form_dir = form_dir
@@ -265,6 +265,24 @@ class checker ():
         return code
 
 
+def init_parser():
+    # 可以在运行时指定用户名密码，也可以在这里手动添加，为保证安全性，建议在运行时用secrets指定
+    parser = argparse.ArgumentParser ()
+    parser.add_argument ("-uid", help="用户名")
+    parser.add_argument ("-passwd", help="密码")
+    parser.add_argument ("-stdName", help="学生姓名")
+    parser.add_argument ("-mobile", help="登记的手机号码（注意与学号对应）")
+    parser.add_argument ("-os_type", help='操作系统("mac","windows","linux")')
+    parser.add_argument ("-decoder", help="解码器('baidu','pytesseract')")
+    parser.add_argument ("-app_id", help="百度aip接口")
+    parser.add_argument ("-api_key", help="百度aip接口")
+    parser.add_argument ("-secret_key", help="百度aip接口")
+    parser.add_argument ("-form_dir", help="指定当前文件夹下存放表单的文件夹相对路径，路径请使用\"\"包裹")
+    parser.add_argument ("-code_dir", help="验证码所在文件夹")
+    parser.add_argument ("-maxretry", help="最大尝试次数")
+    args = parser.parse_args ()
+    return args
+
 """            
 准备工作：请在form_dir中用md5码摘要得到文件名的json文件中，修改自己的信息
 
@@ -282,21 +300,7 @@ class checker ():
 不建议修改的参数 form_dir:存放需要填报表单的json文件夹路径  code_dir:存放验证码的文件夹路径
 """
 if __name__ == '__main__':
-    # 可以在运行时指定用户名密码，也可以在这里手动添加，为保证安全性，建议在运行时用secrets指定
-    parser = argparse.ArgumentParser ()
-    parser.add_argument ("-uid", help="用户名")
-    parser.add_argument ("-passwd", help="密码")
-    parser.add_argument ("-stdName", help="学生姓名")
-    parser.add_argument ("-mobile", help="登记的手机号码（注意与学号对应）")
-    parser.add_argument ("-os_type", help='操作系统("mac","windows","linux")')
-    parser.add_argument ("-decoder", help="解码器('baidu','pytesseract')")
-    parser.add_argument ("-app_id", help="百度aip接口")
-    parser.add_argument ("-api_key", help="百度aip接口")
-    parser.add_argument ("-secret_key", help="百度aip接口")
-    parser.add_argument ("-form_dir", help="指定当前文件夹下存放表单的文件夹相对路径，路径请使用\"\"包裹")
-    parser.add_argument ("-code_dir", help="验证码所在文件夹")
-    parser.add_argument ("-maxretry", help="最大尝试次数")
-    args = parser.parse_args ()
+    args = init_parser()
 
     uid = None
     passwd = None
