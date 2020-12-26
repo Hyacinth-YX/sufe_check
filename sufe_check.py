@@ -347,7 +347,11 @@ if __name__ == '__main__':
                           form_dir=form_dir, code_dir=code_dir, decoder=decoder,
                           app_id=app_id, api_key=api_key, secret_key=secret_key, maxretry=maxretry)
     print ("正在登陆获取cookie")
-    checker_ob.get_login_cookie ()
+    try:
+        checker_ob.get_login_cookie ()
+    except Exception as e:
+        print(e)
+        exit(1)
     print("查询待填写form名称")
     filename = checker_ob.queryForm ()
     print("正在尝试填写表单")
