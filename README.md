@@ -18,10 +18,15 @@
 为了匹配最新稳定版本chrome，更换chromedrive以匹配85版本。部分老版本chrome可能本机运行
 时不匹配，请替换为old version或升级chrome，变换为符合版本。
 
+2020.12.26
+用户如果需要部署项目可以直接fork本项目，在secrets中设置相应参数，然后在form_dir中修改相应学院即可。
+
+此外发现windows用户直接克隆项目修改后，会加入特殊编码的问题，建议直接fork到自己仓库后，使用github编辑他。
+
 
 # Start up
 这是一个每天自动为SUFE健康申报的程序，由python写成，包含了actions，可以将项目挂载github上自动运行。
-当然你也可以挂在自己的服务器上设置一个定时任务
+当然你也可以挂在自己的服务器上设置一个定时任务。
 
 # actions
 github提供的actions服务可以让你在没有服务器的情况下运行一些小程序。
