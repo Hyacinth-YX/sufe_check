@@ -1,0 +1,23 @@
+{
+  "deptName": "信息管理与工程学院",
+  "isDiagnosis": 0,
+  "isSuspect": 0,
+  "isFever": 0,
+  "temperature": null,
+  "curPlace": "上海-学校宿舍",
+  "isConcatDiagnosed": 0,
+  "remark": null,
+  "isEnroute": 0,
+  "departureCountry": null,
+  "transportation": null,
+  "flightNo": null,
+  "entryCity": null,
+  "arriveCity": null,
+  "transitCity": null,
+  "leaveDate": null,
+  "arriveDate": null,
+  "travelCountrys": null,
+  "isVisitRiskArea":0,
+  "isReturnFromHighrisk":0,
+  "riskAreaName": null
+}
