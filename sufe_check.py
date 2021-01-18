@@ -37,7 +37,7 @@ class checker ():
         }
 
         self.queryUrl = 'http://stu.sufe.edu.cn/stu/ncp/cn.edu.sufe.ncp.stuReport.queryStdInfo.biz.ext'
-        self.formUrl = 'http://stu.sufe.edu.cn/stu/ncp/ncpIndex.jsp'
+        self.formUrl = 'http://stu.sufe.edu.cn/stu/ncp/ncpIndex1.jsp'
         self.finishedUrl = "http://stu.sufe.edu.cn/stu/ncp/finished.html"
         self.submitUrl = 'http://stu.sufe.edu.cn/stu/ncp/cn.edu.sufe.ncp.stuReport.submit.biz.ext'
 
@@ -98,7 +98,7 @@ class checker ():
             try:
                 browser = webdriver.Chrome (self.DRIVER_PATH,options=self.chrome_options)
 
-                browser.get (self.formUrl)
+                browser.get (self.queryUrl)
 
                 WebDriverWait (browser, 10).until (
                     EC.presence_of_element_located ((By.ID, "userId"))
@@ -121,14 +121,16 @@ class checker ():
                 browser.find_element_by_id ("password").send_keys (self.passwd)
                 browser.find_element_by_id ("imageCodeName").send_keys (valid_code)
                 browser.find_element_by_class_name ("login").click ()
+                result = browser.find_element_by_tag_name("pre")
 
-                result = WebDriverWait (browser, 5).until (EC.alert_is_present (), "没有消息框，是不是已经填好辽？")
+                # result = WebDriverWait (browser, 5).until (EC.alert_is_present (), "没有消息框，是不是已经填好辽？")
                 if result:
-                    result.accept ()
-                    if browser.current_url == self.formUrl:
-                        break
+                    result = json.loads(result.text)['result'][0]
+                    if result['ISFINISHED'] == 1:
+                        print("报告完成")
+                        exit(0)
                     else:
-                        print ("未知错误，请检查get_login_cookie函数")
+                        break
                 else:
                     browser.refresh ()
                     retry += 1
@@ -136,10 +138,6 @@ class checker ():
                         print("尝试次数达到最大次数，请检查验证码是否解码正确，或用户名密码是否输入正确")
                         exit(555)
             except Exception as e:
-                if browser.current_url == self.finishedUrl:
-                    print ("已经上报成功")
-                    exit (0)
-                else:
                     browser.refresh ()
                     retry += 1
                     if retry >= self.maxretry:
