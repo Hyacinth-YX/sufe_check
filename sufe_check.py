@@ -239,6 +239,7 @@ class checker ():
             print (f"表单信息不存在或可能已经修改，请在{filePath}中手动填写信息")
             with open (filePath, 'w') as f:
                 f.write ("请根据stdForm填写该文件")
+            exit(-1)
 
     def _get_file_content(self, filePath):
         with open (filePath, 'rb') as fp:
