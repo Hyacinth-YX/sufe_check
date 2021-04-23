@@ -17,8 +17,10 @@
   "leaveDate": null,
   "arriveDate": null,
   "travelCountrys": null,
-  "isVisitRiskArea":0,
-  "isReturnFromHighrisk":0,
+  "isNotGreen": null,
+  "isReturnFromHighrisk": 0,
+  "isVisitRiskArea": 0,
   "riskAreaName": null,
-  "vacationGoes": "C. 1月11日-2月27日不留校，寒假在云南-曲靖"
+  "curPlaceRisklevel": "E",
+  "vacationGoes": "A"
 }
