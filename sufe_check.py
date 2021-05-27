@@ -37,7 +37,7 @@ class checker ():
         }
 
         self.queryUrl = 'http://stu.sufe.edu.cn/stu/ncp/cn.edu.sufe.ncp.stuReport.queryStdInfo.biz.ext'
-        self.formUrl = 'http://stu.sufe.edu.cn/stu/ncp/ncpIndex.jsp'
+        self.formUrl = 'http://stu.sufe.edu.cn/stu/ncp/ncpIndex1.jsp'
         self.finishedUrl = "http://stu.sufe.edu.cn/stu/ncp/finished.html"
         self.submitUrl = 'http://stu.sufe.edu.cn/stu/ncp/cn.edu.sufe.ncp.stuReport.submit.biz.ext'
 
